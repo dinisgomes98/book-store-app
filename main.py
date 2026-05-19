@@ -11,7 +11,7 @@ def main():
         infile.close()
 
     except FileNotFoundError :
-        print("the <bookslist.txt> file not found")
+        print("the books list file not found")
         print("Starting new books list!")
         booksList = []
 
@@ -23,22 +23,42 @@ def main():
         print("2) Lookup book")
         print("3) Display books")
         print("4) Quit")
-        option = int(input())
+
+        try:
+            option = int(input("Choose an option >>> "))
+        except ValueError:
+            print("Please enter a number from 1 to 4")
+            continue
 
         if option == 1:
             print("adding a book...")
             nBook = input("Enter book name >>>")
             nAuthor = input("Enter author name >>>")
-            nPages = input("Enter number of pages >>>")
+
+            while True:
+                try:
+                    nPages = int(input("Enter number of pages >>> "))
+                    break
+
+                except ValueError:
+                    print("Please entere a valir number")
+            
+
             booksList.append([nBook, nAuthor, nPages])
 
         elif option == 2:
             print("Looking for book...")
-            keyword = input("Enter search term: ")
+            keyword = input("Enter search term: ").lower()
+
+            found = False
 
             for book in booksList:
-                if keyword in book:
+                if keyword in book[0].lower() or keyword in book[1].lower():
                     print(book)
+                    found = True
+            
+            if not found:
+                print("No matching books found")
 
         elif option == 3:
             print("Displaying all books...")
@@ -47,6 +67,9 @@ def main():
 
         elif option == 4:
             print("Quitting program")
+
+        else:
+            print("Invalid option. Please choose from 1 to 4")
 
     print("Program closed!")
 
