@@ -76,7 +76,7 @@ def main():
     #saving to txt file
     outfile = open("theBooksList.txt", "w")
     for book in booksList:
-        outfile.write(",".join(book) + "\n")
+        outfile.write(",".join(map(str, book)) + "\n")
     outfile.close()
 
 
